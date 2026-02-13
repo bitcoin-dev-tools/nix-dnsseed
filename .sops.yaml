@@ -1,0 +1,17 @@
+keys:
+  - &yubikey 67AA5B46E7AF78053167FE343B8F814A784218F8
+  - &will age1yggqyza4vmts7uuuuykz42sd8dwqszgcfd6y6avw8ul5pm2ekffsg2gqr2
+
+creation_rules:
+  - path_regex: secrets/secrets\.yaml$
+    key_groups:
+      - pgp:
+          - *yubikey
+      - age:
+          - *will
+  - path_regex: (secrets/dnssec|mainnet|signet)/.*
+    key_groups:
+      - pgp:
+          - *yubikey
+      - age:
+          - *will
