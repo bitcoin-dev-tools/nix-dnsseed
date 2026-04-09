@@ -203,6 +203,7 @@ in
       "185.141.60.36:8333"
       "23.175.0.220:8333"
     ];
+    threads = 6;
     dumpFile = "seeds.txt";
     onionProxy = "127.0.0.1:9050";
     i2pProxy = "127.0.0.1:4447";
@@ -219,6 +220,7 @@ in
     seedDomain = "seed.signet.bitcoin.fish.foo";
     serverName = "ns.fish.foo";
     soaRname = "will.256k1.dev";
+    threads = 6;
     dumpFile = "seeds.txt";
     onionProxy = "127.0.0.1:9050";
     i2pProxy = "127.0.0.1:4447";
