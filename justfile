@@ -70,5 +70,9 @@ update:
 logs network="mainnet":
     ssh {{target}} "systemctl status dnsseedrs-{{network}} && journalctl -f -u dnsseedrs-{{network}}"
 
+# Report total node count in the dnsseedrs sqlite db
+@db-stats network="mainnet":
+    ssh {{target}} "nix shell --quiet nixpkgs#sqlite -c sqlite3 /var/lib/dnsseedrs/{{network}}/sqlite.db 'SELECT COUNT(*) FROM nodes;'"
+
 ssh:
     ssh {{target}}
