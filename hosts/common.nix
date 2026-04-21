@@ -109,6 +109,13 @@ in
     proto.socksProxy.enable = true;
   };
 
+  # i2pd reseeds via HTTPS on first start; without network-online ordering it
+  # races DNS, all reseed hosts fail, and it never retries — leaving netDb empty.
+  systemd.services.i2pd = {
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+  };
+
   services.caddy = {
     enable = true;
     package = caddyWithCloudflare;
