@@ -224,7 +224,10 @@ in
     "nix-command"
     "flakes"
   ];
-  environment.systemPackages = [ pkgs.git ];
+  environment.systemPackages = [
+    pkgs.git
+    pkgs.ghostty.terminfo
+  ];
 
   networking.firewall.allowedTCPPorts = [
     22
