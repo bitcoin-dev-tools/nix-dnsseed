@@ -128,12 +128,14 @@ in
       root * /var/lib/dnsseedrs/mainnet
       file_server browse {
         hide *.db
+        hide sqlite*
       }
     '';
     virtualHosts."signet.bitcoin.fish.foo".extraConfig = ''
       root * /var/lib/dnsseedrs/signet
       file_server browse {
         hide *.db
+        hide sqlite*
       }
     '';
   };
