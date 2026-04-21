@@ -227,6 +227,7 @@ in
   environment.systemPackages = [
     pkgs.git
     pkgs.ghostty.terminfo
+    pkgs.htop
   ];
 
   networking.firewall.allowedTCPPorts = [
