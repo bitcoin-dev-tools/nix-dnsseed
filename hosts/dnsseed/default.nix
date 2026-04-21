@@ -215,7 +215,7 @@ in
   };
 
   services.dnsseedrs.signet = {
-    enable = true;
+    enable = false;
     chain = "signet";
     seedDomain = "seed.signet.bitcoin.fish.foo";
     serverName = "ns.fish.foo";
@@ -235,6 +235,10 @@ in
   systemd.services.dnsseedrs-mainnet = {
     after = [ "sops-install-secrets.service" ];
     wants = [ "sops-install-secrets.service" ];
+    serviceConfig = {
+      CPUQuota = "150%";
+      Nice = 5;
+    };
   };
   systemd.services.dnsseedrs-signet = {
     after = [ "sops-install-secrets.service" ];
