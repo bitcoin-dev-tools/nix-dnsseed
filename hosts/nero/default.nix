@@ -9,7 +9,7 @@
   networking.hostName = "nero";
   networking.useDHCP = true;
 
-  services.dnsseedrs.mainnet.threads = 32;
+  services.dnsseedrs.mainnet.threads = 200;
   services.dnsseedrs.signet = {
     enable = true;
     threads = 10;
