@@ -1,6 +1,6 @@
 set shell := ["bash", "-uc"]
-hostname := "dnsseed"
-target := "root@dnsseed"
+hostname := "nero"
+target := "root@nero"
 
 [private]
 default:
@@ -9,7 +9,7 @@ default:
 # Deploy NixOS via nixos-anywhere (first install)
 deploy:
     nix run github:nix-community/nixos-anywhere -- \
-        --generate-hardware-config nixos-generate-config ./hosts/dnsseed/hardware-configuration.nix \
+        --generate-hardware-config nixos-generate-config ./hosts/{{hostname}}/hardware-configuration.nix \
         --flake .#{{hostname}} {{target}}
 
 # Sync repo to remote and switch configuration

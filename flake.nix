@@ -45,6 +45,19 @@
             ./hosts/dnsseed
           ];
         };
+
+        nixosConfigurations.nero = inputs.nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            inputs.disko.nixosModules.disko
+            inputs.sops-nix.nixosModules.sops
+            inputs.dnsseedrs.nixosModules.default
+            {
+              nixpkgs.overlays = [ inputs.dnsseedrs.overlays.default ];
+            }
+            ./hosts/nero
+          ];
+        };
       };
     };
 }
