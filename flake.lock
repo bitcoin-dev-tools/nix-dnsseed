@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1774436647,
-        "narHash": "sha256-l4WXUDuqrWwKzumk0ak9ZYBorDPI2PwUgVCmJ0pQmIM=",
+        "lastModified": 1776628784,
+        "narHash": "sha256-lY0pdMN+osnjRkkSySo9XcCuicPjtO1Yz01r2FZ7DDs=",
         "owner": "willcl-ark",
         "repo": "dnsseedrs",
-        "rev": "e9e30aa9b8dc65febd2a928e092345ad8338a169",
+        "rev": "742871e771c0345bd4878358a17da24c1476f291",
         "type": "github"
       },
       "original": {
