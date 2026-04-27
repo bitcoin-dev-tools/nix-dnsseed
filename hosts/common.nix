@@ -30,7 +30,15 @@ in
 
   # sops-nix creates secret directories owned by root:keys — dnsseedrs needs
   # group membership to traverse them and read its DNSSEC key files.
-  users.users.dnsseedrs.extraGroups = [ "keys" ];
+  # The user/group are also declared by the dnsseedrs module when any instance
+  # is enabled; declare them here so sops secret ownership resolves even when
+  # all instances are disabled on a host.
+  users.users.dnsseedrs = {
+    isSystemUser = true;
+    group = "dnsseedrs";
+    extraGroups = [ "keys" ];
+  };
+  users.groups.dnsseedrs = { };
 
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH988C5DbEPHfoCphoW23MWq9M6fmA4UTXREiZU0J7n0 will.hetzner@temp.com"
@@ -171,7 +179,7 @@ in
   };
 
   services.dnsseedrs.mainnet = {
-    enable = true;
+    enable = lib.mkDefault false;
     chain = "main";
     seedDomain = "seed.bitcoin.fish.foo";
     serverName = "ns.fish.foo";
