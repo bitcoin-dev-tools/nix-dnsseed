@@ -9,7 +9,8 @@ seed only the Bitcoin Core repository.
 - Radicle DNS name: `radicle.fish.foo`
 - Radicle node port: `8776/tcp`
 - Private node key: `sops` secret `radicle-private-key`
-- Public node key: configured in `hosts/radicle.nix`
+- Public node key: configured in `hosts/nero/default.nix`
+- Reusable module: `radicle-mirror`, imported by the main flake as a local input
 - Seeding policy: selective, with unknown repositories blocked by default
 - Bitcoin Core RID: generated on the first mirror run and stored at `/var/lib/radicle-mirror/bitcoin.rid`
 - Bitcoin Core allow rule: applied by `radicle-mirror-bitcoin-core.service`
@@ -59,7 +60,7 @@ Save and exit. Do not commit the plaintext private key anywhere else.
 
 ## 3. Configure The Public Key
 
-Edit `hosts/radicle.nix` and replace:
+Edit `hosts/nero/default.nix` and replace:
 
 ```nix
 publicKey = "/var/lib/radicle/keys/radicle.pub";
@@ -68,7 +69,7 @@ publicKey = "/var/lib/radicle/keys/radicle.pub";
 with the public key from step 1:
 
 ```nix
-publicKey = "ssh-ed25519 ...";
+services.radicleMirror.seed.publicKey = "ssh-ed25519 ...";
 ```
 
 The public key is not secret and can be committed.
@@ -163,8 +164,8 @@ rad-system seed
 ```
 
 `rad-system seed` with no arguments should list only the explicit Bitcoin Core
-allow policy. Because `hosts/radicle.nix` sets `seedingPolicy.default = "block"`,
-unknown repositories remain blocked.
+allow policy. Because the `radicle-mirror` NixOS module sets
+`seedingPolicy.default = "block"`, unknown repositories remain blocked.
 
 On a fresh seed node, this means only Bitcoin Core is served. If this node was
 previously used to seed other repositories, remove those explicit policies with

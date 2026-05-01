@@ -2,7 +2,6 @@
 {
   imports = [
     ../common.nix
-    ../radicle.nix
     ./disko.nix
     ./hardware-configuration.nix
   ];

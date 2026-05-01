@@ -108,12 +108,29 @@
         "type": "github"
       }
     },
+    "radicle-mirror": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "./radicle-mirror",
+        "type": "path"
+      },
+      "original": {
+        "path": "./radicle-mirror",
+        "type": "path"
+      },
+      "parent": []
+    },
     "root": {
       "inputs": {
         "disko": "disko",
         "dnsseedrs": "dnsseedrs",
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
+        "radicle-mirror": "radicle-mirror",
         "sops-nix": "sops-nix"
       }
     },

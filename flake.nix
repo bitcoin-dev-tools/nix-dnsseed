@@ -16,6 +16,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    radicle-mirror = {
+      url = "path:./radicle-mirror";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -52,6 +56,7 @@
             inputs.disko.nixosModules.disko
             inputs.sops-nix.nixosModules.sops
             inputs.dnsseedrs.nixosModules.default
+            inputs.radicle-mirror.nixosModules.default
             {
               nixpkgs.overlays = [ inputs.dnsseedrs.overlays.default ];
             }

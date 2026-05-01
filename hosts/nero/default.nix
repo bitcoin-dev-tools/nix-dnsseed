@@ -1,8 +1,7 @@
-{ ... }:
+{ config, ... }:
 {
   imports = [
     ../common.nix
-    ../radicle.nix
     ./disko.nix
     ./hardware-configuration.nix
   ];
@@ -17,5 +16,35 @@
   services.dnsseedrs.signet = {
     enable = false;
     threads = 10;
+  };
+
+  sops.secrets.radicle-private-key = {
+    owner = "radicle";
+    group = "radicle";
+    mode = "0400";
+  };
+
+  services.radicleMirror = {
+    enable = true;
+    domain = "radicle.fish.foo";
+
+    seed = {
+      enable = true;
+      privateKeyFile = config.sops.secrets.radicle-private-key.path;
+      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKPDAHBnAYYRqKFeDBC7VhYa4e6KbIV0VXdW6Bk1QMxZ radicle";
+      nodeId = "z6MkqUWxg7edhgBufSVEb39cEmndNEg8FuMhqCKaMB85UXDJ";
+    };
+
+    frontend.enable = true;
+
+    bitcoinMirror = {
+      enable = true;
+      delegateDids = [ "did:key:z6MkminBAVqNKgPS7bT6HqDqbXaE31jqZ8p3eXMAC2czwHJn" ];
+    };
+  };
+
+  systemd.services.radicle-node = {
+    after = [ "sops-install-secrets.service" ];
+    wants = [ "sops-install-secrets.service" ];
   };
 }
