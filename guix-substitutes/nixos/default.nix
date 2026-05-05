@@ -13,6 +13,14 @@ let
   publicKeyRuntimePath = "${runtimePath}/signing-key.pub";
   privateKeyRuntimePath = "${runtimePath}/signing-key.sec";
   publicKeyWebPath = "${cfg.publicDirectory}/signing-key.pub";
+  landingPageDirectory = pkgs.writeTextDir "index.html" ''
+    <html><head><title>GNU Guix Substitute Server</title></head>
+    <body>
+    <h1>GNU Guix Bitcoin Core Substitute Server</h1>
+    <p>Hi, <a href="https://guix.gnu.org/manual/en/html_node/Invoking-guix-publish.html"><tt>guix publish</tt></a> speaking. Welcome!</p>
+    <p>Here is the <a href="signing-key.pub"><tt>signing key</tt></a> for this server.</p>
+    </body></html>
+  '';
 
   sdkSetup = lib.concatStringsSep "\n" (
     map (sdk: ''
@@ -211,6 +219,11 @@ in
     services.caddy.virtualHosts.${cfg.domain}.extraConfig = ''
       handle /signing-key.pub {
         root * ${cfg.publicDirectory}
+        file_server
+      }
+
+      handle / {
+        root * ${landingPageDirectory}
         file_server
       }
 
