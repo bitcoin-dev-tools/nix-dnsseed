@@ -43,6 +43,21 @@
     };
   };
 
+  services.bitcoinCoreGuixSubstitutes = {
+    enable = true;
+    domain = "guix.fish.foo";
+    stateDirectory = "/gnu/guix-bitcoin";
+
+    signingKeySecrets = {
+      public = ../../secrets/guix/signing-key.pub;
+      private = ../../secrets/guix/signing-key.sec;
+    };
+
+    macosSdks = [
+      "Xcode-26.1.1-17B100"
+    ];
+  };
+
   systemd.services.radicle-node = {
     after = [ "sops-install-secrets.service" ];
     wants = [ "sops-install-secrets.service" ];

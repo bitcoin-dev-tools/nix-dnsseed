@@ -20,6 +20,10 @@
       url = "path:./radicle-mirror";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    guix-substitutes = {
+      url = "path:./guix-substitutes";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -57,6 +61,7 @@
             inputs.sops-nix.nixosModules.sops
             inputs.dnsseedrs.nixosModules.default
             inputs.radicle-mirror.nixosModules.default
+            inputs.guix-substitutes.nixosModules.default
             {
               nixpkgs.overlays = [ inputs.dnsseedrs.overlays.default ];
             }

@@ -77,6 +77,22 @@
         "type": "github"
       }
     },
+    "guix-substitutes": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "./guix-substitutes",
+        "type": "path"
+      },
+      "original": {
+        "path": "./guix-substitutes",
+        "type": "path"
+      },
+      "parent": []
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1776434932,
@@ -129,6 +145,7 @@
         "disko": "disko",
         "dnsseedrs": "dnsseedrs",
         "flake-parts": "flake-parts",
+        "guix-substitutes": "guix-substitutes",
         "nixpkgs": "nixpkgs",
         "radicle-mirror": "radicle-mirror",
         "sops-nix": "sops-nix"

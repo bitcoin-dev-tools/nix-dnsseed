@@ -21,3 +21,11 @@ creation_rules:
           - *will
           - *server
           - *nero
+  - path_regex: secrets/guix/.*
+    key_groups:
+      - pgp:
+          - *yubikey
+        age:
+          - *will
+          - *server
+          - *nero

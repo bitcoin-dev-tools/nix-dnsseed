@@ -3,3 +3,4 @@ server-backups
 seeds.txt
 .claude/
 keys/
+.codex
