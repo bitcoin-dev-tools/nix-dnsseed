@@ -52,6 +52,7 @@
       public = ../../secrets/guix/signing-key.pub;
       private = ../../secrets/guix/signing-key.sec;
     };
+    signingKeySignature = ../../secrets/guix/signing-key.pub.asc;
 
     macosSdks = [
       "Xcode-26.1.1-17B100"

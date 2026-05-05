@@ -13,6 +13,7 @@ let
   publicKeyRuntimePath = "${runtimePath}/signing-key.pub";
   privateKeyRuntimePath = "${runtimePath}/signing-key.sec";
   publicKeyWebPath = "${cfg.publicDirectory}/signing-key.pub";
+  publicKeySignatureWebPath = "${cfg.publicDirectory}/signing-key.pub.asc";
   landingPageDirectory = pkgs.writeTextDir "index.html" ''
     <html><head><title>GNU Guix Substitute Server</title></head>
     <body>
@@ -20,19 +21,24 @@ let
     <p>Hi, <a href="https://guix.gnu.org/manual/en/html_node/Invoking-guix-publish.html"><tt>guix publish</tt></a> speaking. Welcome!</p>
     <p>Here is the <a href="signing-key.pub"><tt>signing key</tt></a> for this server.</p>
     <h2>Usage</h2>
-    <h3>1. Download the signing key</h3>
-    <pre><code>curl -fL https://${cfg.domain}/signing-key.pub -o ${cfg.domain}.pub</code></pre>
-    <h3>2. Authorize the signing key</h3>
-    <p>After checking that you trust this key, authorize it as root:</p>
-    <pre><code>guix archive --authorize &lt; ${cfg.domain}.pub</code></pre>
+    <h3>1. Download the signing key and signature</h3>
+    <pre><code>curl -fLO https://${cfg.domain}/signing-key.pub
+curl -fLO https://${cfg.domain}/signing-key.pub.asc</code></pre>
+    <h3>2. Verify and authorize the signing key</h3>
+    <p>The OpenPGP key for this signature is published in <a href="https://github.com/bitcoin-core/guix.sigs"><tt>bitcoin-core/guix.sigs</tt></a> as <a href="https://raw.githubusercontent.com/bitcoin-core/guix.sigs/refs/heads/main/builder-keys/willcl-ark.gpg"><tt>builder-keys/willcl-ark.gpg</tt></a>.</p>
+    <pre><code>curl -fL https://raw.githubusercontent.com/bitcoin-core/guix.sigs/refs/heads/main/builder-keys/willcl-ark.gpg -o willcl-ark.gpg
+gpg --import willcl-ark.gpg
+gpg --verify signing-key.pub.asc signing-key.pub</code></pre>
+    <p>Then authorize the Guix signing key as root:</p>
+    <pre><code>guix archive --authorize &lt; signing-key.pub</code></pre>
     <p>Or, with sudo:</p>
-    <pre><code>sudo guix archive --authorize &lt; ${cfg.domain}.pub</code></pre>
+    <pre><code>sudo guix archive --authorize &lt; signing-key.pub</code></pre>
     <h3>3. Use this substitute server</h3>
     <p>Change the default list of substitute servers by starting <tt>guix-daemon</tt> with <tt>--substitute-urls</tt>. You will likely need to edit your init script:</p>
     <pre><code>guix-daemon &lt;cmd&gt; --substitute-urls='https://${cfg.domain} https://ci.guix.gnu.org'</code></pre>
     <p>Override the default list for one <tt>guix</tt> invocation:</p>
     <pre><code>guix &lt;cmd&gt; --substitute-urls='https://${cfg.domain} https://ci.guix.gnu.org'</code></pre>
-    <p>For scripts under <tt>./contrib/guix</tt>, set <tt>SUBSTITUTE_URLS</tt>:</p>
+    <p>For bitcoin build scripts under <tt>./contrib/guix</tt>, set <tt>SUBSTITUTE_URLS</tt>:</p>
     <pre><code>export SUBSTITUTE_URLS='https://${cfg.domain} https://ci.guix.gnu.org'</code></pre>
     </body></html>
   '';
@@ -116,6 +122,11 @@ in
         type = lib.types.path;
         description = "Sops file containing the Guix substitute signing private key.";
       };
+    };
+
+    signingKeySignature = lib.mkOption {
+      type = lib.types.path;
+      description = "Detached OpenPGP signature for the Guix substitute signing public key.";
     };
 
     bitcoinRepository = lib.mkOption {
@@ -237,6 +248,11 @@ in
         file_server
       }
 
+      handle /signing-key.pub.asc {
+        root * ${cfg.publicDirectory}
+        file_server
+      }
+
       handle / {
         root * ${landingPageDirectory}
         file_server
@@ -279,6 +295,7 @@ in
         "+${pkgs.coreutils}/bin/install -m 0444 -o root -g root ${
           config.sops.secrets."guix-signing-key.pub".path
         } ${publicKeyWebPath}"
+        "+${pkgs.coreutils}/bin/install -m 0444 -o root -g root ${cfg.signingKeySignature} ${publicKeySignatureWebPath}"
         "+${pkgs.coreutils}/bin/install -m 0440 -o root -g guix-publish ${
           config.sops.secrets."guix-signing-key.sec".path
         } ${privateKeyRuntimePath}"
