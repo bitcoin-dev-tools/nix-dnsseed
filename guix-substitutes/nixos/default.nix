@@ -19,6 +19,21 @@ let
     <h1>GNU Guix Bitcoin Core Substitute Server</h1>
     <p>Hi, <a href="https://guix.gnu.org/manual/en/html_node/Invoking-guix-publish.html"><tt>guix publish</tt></a> speaking. Welcome!</p>
     <p>Here is the <a href="signing-key.pub"><tt>signing key</tt></a> for this server.</p>
+    <h2>Usage</h2>
+    <h3>1. Download the signing key</h3>
+    <pre><code>curl -fL https://${cfg.domain}/signing-key.pub -o ${cfg.domain}.pub</code></pre>
+    <h3>2. Authorize the signing key</h3>
+    <p>After checking that you trust this key, authorize it as root:</p>
+    <pre><code>guix archive --authorize &lt; ${cfg.domain}.pub</code></pre>
+    <p>Or, with sudo:</p>
+    <pre><code>sudo guix archive --authorize &lt; ${cfg.domain}.pub</code></pre>
+    <h3>3. Use this substitute server</h3>
+    <p>Change the default list of substitute servers by starting <tt>guix-daemon</tt> with <tt>--substitute-urls</tt>. You will likely need to edit your init script:</p>
+    <pre><code>guix-daemon &lt;cmd&gt; --substitute-urls='https://${cfg.domain} https://ci.guix.gnu.org'</code></pre>
+    <p>Override the default list for one <tt>guix</tt> invocation:</p>
+    <pre><code>guix &lt;cmd&gt; --substitute-urls='https://${cfg.domain} https://ci.guix.gnu.org'</code></pre>
+    <p>For scripts under <tt>./contrib/guix</tt>, set <tt>SUBSTITUTE_URLS</tt>:</p>
+    <pre><code>export SUBSTITUTE_URLS='https://${cfg.domain} https://ci.guix.gnu.org'</code></pre>
     </body></html>
   '';
 
