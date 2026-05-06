@@ -24,6 +24,10 @@
       url = "path:./guix-substitutes";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stuntman = {
+      url = "path:./stuntman";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -62,6 +66,7 @@
             inputs.dnsseedrs.nixosModules.default
             inputs.radicle-mirror.nixosModules.default
             inputs.guix-substitutes.nixosModules.default
+            inputs.stuntman.nixosModules.default
             {
               nixpkgs.overlays = [ inputs.dnsseedrs.overlays.default ];
             }

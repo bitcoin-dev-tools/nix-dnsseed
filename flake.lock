@@ -148,7 +148,8 @@
         "guix-substitutes": "guix-substitutes",
         "nixpkgs": "nixpkgs",
         "radicle-mirror": "radicle-mirror",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "stuntman": "stuntman"
       }
     },
     "sops-nix": {
@@ -170,6 +171,22 @@
         "repo": "sops-nix",
         "type": "github"
       }
+    },
+    "stuntman": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "./stuntman",
+        "type": "path"
+      },
+      "original": {
+        "path": "./stuntman",
+        "type": "path"
+      },
+      "parent": []
     },
     "systems": {
       "locked": {

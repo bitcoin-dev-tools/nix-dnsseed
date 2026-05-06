@@ -18,6 +18,8 @@
     threads = 10;
   };
 
+  stutman.enable = true;
+
   sops.secrets.radicle-private-key = {
     owner = "radicle";
     group = "radicle";
