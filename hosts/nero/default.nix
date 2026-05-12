@@ -8,6 +8,16 @@
 
   networking.hostName = "nero";
   networking.useDHCP = true;
+  networking.interfaces.enp6s0.ipv6.addresses = [
+    {
+      address = "2a01:4f9:c012:aca8::1";
+      prefixLength = 64;
+    }
+  ];
+  networking.defaultGateway6 = {
+    address = "fe80::1";
+    interface = "enp6s0";
+  };
 
   services.dnsseedrs.mainnet = {
     enable = true;
