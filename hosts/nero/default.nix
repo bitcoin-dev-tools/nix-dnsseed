@@ -10,7 +10,7 @@
   networking.useDHCP = true;
   networking.interfaces.enp6s0.ipv6.addresses = [
     {
-      address = "2a01:4f9:c012:aca8::1";
+      address = "2a01:4f9:3100:441f::1";
       prefixLength = 64;
     }
   ];
