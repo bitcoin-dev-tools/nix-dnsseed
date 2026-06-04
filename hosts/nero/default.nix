@@ -71,6 +71,14 @@
     ];
   };
 
+  services.caddy.virtualHosts."bitcoin.fish.foo".extraConfig = ''
+    redir /pruned-840k /pruned-840k/
+    handle_path /pruned-840k/* {
+      root * /data/pruned-840k
+      file_server browse
+    }
+  '';
+
   systemd.services.radicle-node = {
     after = [ "sops-install-secrets.service" ];
     wants = [ "sops-install-secrets.service" ];
