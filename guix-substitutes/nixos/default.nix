@@ -9,6 +9,16 @@ let
 
   runtimeDirectory = "guix-publish";
   runtimePath = "/run/${runtimeDirectory}";
+  bitcoinGuixHosts = [
+    "x86_64-linux-gnu"
+    "arm-linux-gnueabihf"
+    "aarch64-linux-gnu"
+    "riscv64-linux-gnu"
+    "powerpc64-linux-gnu"
+    "x86_64-w64-mingw32"
+    "x86_64-apple-darwin"
+    "arm64-apple-darwin"
+  ];
 
   publicKeyRuntimePath = "${runtimePath}/signing-key.pub";
   privateKeyRuntimePath = "${runtimePath}/signing-key.sec";
@@ -54,6 +64,57 @@ gpg --verify signing-key.pub.asc signing-key.pub</code></pre>
           -xaf ${cfg.stateDirectory}/macos-sdks/${sdk}-extracted-SDK-with-libcxx-headers.tar
       fi
     '') cfg.macosSdks
+  );
+  prewarmSubstitutes = ''
+    prewarm_url=http://${cfg.publishAddress}:${toString cfg.publishPort}
+
+    prewarm_store_path() {
+      path="$1"
+      hash="$(basename "$path" | cut -d- -f1)"
+      until curl -fsS -o /dev/null "$prewarm_url/$hash.narinfo"; do
+        sleep 10
+      done
+    }
+
+    if version="$(git describe --exact-match HEAD 2> /dev/null)"; then
+      version="''${version#v}"
+    else
+      version="$(git rev-parse --short=12 HEAD)"
+    fi
+
+    profiles_dir="guix-build-$version/var/profiles"
+    for host in ${lib.escapeShellArgs bitcoinGuixHosts}; do
+      profile="$profiles_dir/$host"
+      if [ ! -e "$profile" ]; then
+        echo "ERR: Guix profile $profile does not exist"
+        exit 1
+      fi
+    done
+
+    echo "Prewarming Guix substitute closure..."
+    for host in ${lib.escapeShellArgs bitcoinGuixHosts}; do
+      guix gc --requisites "$(readlink -f "$profiles_dir/$host")"
+    done | sort -u | while IFS= read -r path; do
+      prewarm_store_path "$path"
+    done
+  ''
+  + lib.concatStringsSep "\n" (
+    map (host: ''
+      echo "Checking Guix substitute availability for ${host}..."
+      until JOBS=${toString cfg.buildJobs} \
+        ADDITIONAL_GUIX_TIMEMACHINE_FLAGS="${cfg.additionalGuixTimemachineFlags}" \
+        env HOST=${host} \
+          guix time-machine \
+            --url=https://codeberg.org/guix/guix.git \
+            --commit=c5eee3336cc1d10a3cc1c97fde2809c3451624d3 \
+            ${cfg.additionalGuixTimemachineFlags} \
+            -- weather \
+              --substitute-urls=$prewarm_url \
+              -m contrib/guix/manifest_build.scm \
+          | grep -q '100.0% substitutes available'; do
+        sleep 10
+      done
+    '') bitcoinGuixHosts
   );
 in
 {
@@ -234,9 +295,9 @@ in
           "--listen=${cfg.publishAddress}"
           "--cache=${cfg.publishCacheDirectory}"
           "--compression=zstd:6"
+          "--cache-bypass-threshold=0"
           "--ttl=30d"
-          "--negative-ttl=1h"
-          "--workers=4"
+          "--workers=${toString cfg.buildJobs}"
           "--public-key=${publicKeyRuntimePath}"
           "--private-key=${privateKeyRuntimePath}"
         ];
@@ -310,10 +371,12 @@ in
       after = [
         "network-online.target"
         "guix-daemon.service"
+        "guix-publish.service"
       ];
       wants = [
         "network-online.target"
         "guix-daemon.service"
+        "guix-publish.service"
       ];
       path = [
         pkgs.bash
@@ -322,6 +385,7 @@ in
         pkgs.findutils
         pkgs.getent
         pkgs.gnumake
+        pkgs.gnugrep
         pkgs.gnused
         pkgs.gnutar
         config.services.guix.package
@@ -354,6 +418,8 @@ in
         SDK_PATH=${cfg.stateDirectory}/macos-sdks \
         ADDITIONAL_GUIX_TIMEMACHINE_FLAGS="${cfg.additionalGuixTimemachineFlags}" \
           ./contrib/guix/guix-build
+
+        ${prewarmSubstitutes}
 
         printf '%s\n' "$commit" > ${cfg.stateDirectory}/last-built-commit
       '';
