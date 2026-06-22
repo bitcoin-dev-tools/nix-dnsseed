@@ -54,7 +54,7 @@ in
 
     database.type = "sqlite3";
     dump.enable = true;
-    lfs.enable = false;
+    lfs.enable = true;
 
     settings = {
       DEFAULT = {
