@@ -9,6 +9,10 @@ let
   stateDir = config.services.forgejo.stateDir;
   adminUser = "willcl-ark";
   adminEmail = "will@256k1.dev";
+  forgejoBundle = {
+    forgejoUrl = "http://127.0.0.1:3001";
+    anubisBind = "127.0.0.1:3002";
+  };
 
   adminInit = pkgs.writeShellScript "forgejo-admin-init" ''
     set -euo pipefail
@@ -173,8 +177,15 @@ in
   };
 
   services.caddy.virtualHosts."code.fish.foo".extraConfig = ''
-    reverse_proxy 127.0.0.1:3001
+    reverse_proxy ${forgejoBundle.anubisBind}
   '';
+
+  services.anubis.instances.forgejo.settings = {
+    TARGET = forgejoBundle.forgejoUrl;
+    BIND = forgejoBundle.anubisBind;
+    BIND_NETWORK = "tcp";
+    OG_PASSTHROUGH = true;
+  };
 
   systemd.services.forgejo = {
     after = [ "sops-install-secrets.service" ];
