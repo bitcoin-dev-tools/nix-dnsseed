@@ -47,6 +47,11 @@ in
     group = "forgejo";
     mode = "0400";
   };
+  sops.secrets.forgejo-mailer-password = {
+    owner = "forgejo";
+    group = "forgejo";
+    mode = "0400";
+  };
 
   services.forgejo = {
     enable = true;
@@ -82,7 +87,18 @@ in
         DISABLE_REGISTRATION = true;
         REQUIRE_SIGNIN_VIEW = false;
         ENABLE_BASIC_AUTHENTICATION = false;
+        ENABLE_NOTIFY_MAIL = true;
         DEFAULT_ALLOW_CREATE_ORGANIZATION = false;
+      };
+
+      mailer = {
+        ENABLED = true;
+        FROM = "Forgejo <forgejo@fish.foo>";
+        PROTOCOL = "smtps";
+        SMTP_ADDR = "smtp.mailbox.org";
+        SMTP_PORT = 465;
+        USER = "will@256k1.dev";
+        PASSWD_URI = "file:${config.sops.secrets.forgejo-mailer-password.path}";
       };
 
       admin = {
