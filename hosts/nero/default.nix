@@ -3,6 +3,7 @@
   imports = [
     ../common.nix
     ./disko.nix
+    ./forgejo.nix
     ./hardware-configuration.nix
   ];
 
@@ -29,6 +30,16 @@
   };
 
   stutman.enable = true;
+
+  services.openssh.ports = [
+    22
+    2222
+  ];
+  services.openssh.extraConfig = ''
+    Match LocalPort 22
+      DenyUsers root
+  '';
+  networking.firewall.allowedTCPPorts = [ 2222 ];
 
   sops.secrets.radicle-private-key = {
     owner = "radicle";
