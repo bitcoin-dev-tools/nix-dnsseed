@@ -90,7 +90,7 @@ in
 
     services.radicle = {
       enable = true;
-      privateKeyFile = seed.privateKeyFile;
+      privateKey = seed.privateKeyFile;
       publicKey = seed.publicKey;
 
       node = {
