@@ -31,6 +31,9 @@
   requests to Forgejo.
 - Enabled Open Graph passthrough so link previews can keep working through the
   Anubis challenge layer.
+- Configured Caddy to trust Cloudflare proxy ranges and pass the client IP from
+  `CF-Connecting-IP` to Anubis as `X-Forwarded-For` and `X-Real-IP`, preserving
+  Anubis' default JWT binding to the real client IP.
 - Kept this scoped to Forgejo because the seed dump and Guix substitute
   endpoints are machine-consumed services and should not receive a browser
   proof-of-work challenge.

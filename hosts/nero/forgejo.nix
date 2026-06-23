@@ -177,7 +177,11 @@ in
   };
 
   services.caddy.virtualHosts."code.fish.foo".extraConfig = ''
-    reverse_proxy ${forgejoBundle.anubisBind}
+    reverse_proxy ${forgejoBundle.anubisBind} {
+      header_up X-Forwarded-For {client_ip}
+      header_up X-Real-IP {client_ip}
+      header_up X-Http-Version {http.request.proto}
+    }
   '';
 
   services.anubis.instances.forgejo.settings = {
