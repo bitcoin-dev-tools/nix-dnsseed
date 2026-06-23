@@ -77,6 +77,23 @@
         "type": "github"
       }
     },
+    "forgejo-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1782218692,
+        "narHash": "sha256-wsk4avgcTt2M0nm4OjxTmTD9bK5cnrx9HZuW8BqOURg=",
+        "owner": "willcl-ark",
+        "repo": "forgejo",
+        "rev": "481eccf10e156888d04350b95a936c41440daf57",
+        "type": "github"
+      },
+      "original": {
+        "owner": "willcl-ark",
+        "ref": "full-mirror",
+        "repo": "forgejo",
+        "type": "github"
+      }
+    },
     "guix-substitutes": {
       "inputs": {
         "nixpkgs": [
@@ -145,6 +162,7 @@
         "disko": "disko",
         "dnsseedrs": "dnsseedrs",
         "flake-parts": "flake-parts",
+        "forgejo-src": "forgejo-src",
         "guix-substitutes": "guix-substitutes",
         "nixpkgs": "nixpkgs",
         "radicle-mirror": "radicle-mirror",

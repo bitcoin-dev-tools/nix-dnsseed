@@ -12,6 +12,10 @@
       url = "github:willcl-ark/dnsseedrs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    forgejo-src = {
+      url = "github:willcl-ark/forgejo/full-mirror";
+      flake = false;
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -68,7 +72,20 @@
             inputs.guix-substitutes.nixosModules.default
             inputs.stuntman.nixosModules.default
             {
-              nixpkgs.overlays = [ inputs.dnsseedrs.overlays.default ];
+              nixpkgs.overlays = [
+                inputs.dnsseedrs.overlays.default
+                (_final: prev: {
+                  forgejo = prev.forgejo.overrideAttrs {
+                    src = inputs.forgejo-src;
+                    vendorHash = "sha256-cb6f7ZX3pG95EEZotGXn6+YUJN59SFNVHFTejFJ6y28=";
+                    doCheck = false;
+                    postPatch = ''
+                      ${prev.forgejo.postPatch}
+                      rm -rf vendor
+                    '';
+                  };
+                })
+              ];
             }
             ./hosts/nero
           ];
