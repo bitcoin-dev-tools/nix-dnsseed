@@ -148,7 +148,7 @@ in
       };
 
       oauth2 = {
-        ENABLED = false;
+        ENABLED = true;
       };
 
       openid = {
