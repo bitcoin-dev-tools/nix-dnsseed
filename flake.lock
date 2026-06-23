@@ -80,11 +80,11 @@
     "forgejo-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1782218692,
-        "narHash": "sha256-wsk4avgcTt2M0nm4OjxTmTD9bK5cnrx9HZuW8BqOURg=",
+        "lastModified": 1782220054,
+        "narHash": "sha256-O319kYXhpst8/VIUwxJfdWAIdcDjsWOiULd/klqHZfY=",
         "owner": "willcl-ark",
         "repo": "forgejo",
-        "rev": "481eccf10e156888d04350b95a936c41440daf57",
+        "rev": "d2148ba7009c172c99a2269615cdd3551372a11c",
         "type": "github"
       },
       "original": {
