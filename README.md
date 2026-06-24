@@ -1,32 +1,39 @@
 # nix-dnsseed
 
-NixOS deployment for Bitcoin DNS seeders using [dnsseedrs](https://github.com/willcl-ark/dnsseedrs).
+NixOS host aggregator for the `dnsseed` and `nero` machines.
 
 ## Overview
 
-This flake deploys a NixOS server running:
+This flake composes reusable service modules that live outside this deployment
+repo under `/home/will/src/nix/modules`.
 
-- **dnsseedrs** -- Bitcoin DNS seeder (mainnet + signet instances)
-- **CoreDNS** -- forwards DNS queries to dnsseedrs, with a catch-all REFUSED zone
-- **Caddy** -- HTTPS file server for seed dumps, with Cloudflare DNS ACME
-- **Tor** and **I2P** -- SOCKS proxies for onion/i2p peer crawling
+Standalone modules currently consumed by this repo:
 
-## How dnsseedrs is integrated
+- **bitcoin-dnsseed** -- `dnsseedrs`, CoreDNS, DNSSEC secrets, seed dumps, Tor/I2P
+- **bitcoin-core-guix-substitutes** -- Guix publish and Bitcoin Core Guix builds
+- **radicle-mirror** -- public Radicle seed, explorer frontend, Bitcoin Core mirror
+- **stuntman** -- STUNTMAN STUN server and btcpunch rendezvous helper
+- **forgejo-site** -- Forgejo, Anubis, Caddy route, secrets, admin bootstrap
 
-The [dnsseedrs flake](https://github.com/willcl-ark/dnsseedrs) provides a NixOS module and overlay. This flake imports both:
+Host-local configuration stays here: hardware/disko config, domains, encrypted
+secret file paths, host sizing, and deployment commands.
 
-```nix
-# flake.nix inputs
-dnsseedrs.url = "github:willcl-ark/dnsseedrs";
+## Module Layout
 
-# NixOS module configuration
-modules = [
-  inputs.dnsseedrs.nixosModules.default
-  { nixpkgs.overlays = [ inputs.dnsseedrs.overlays.default ]; }
-];
+Each reusable module is its own git repo:
+
+```text
+/home/will/src/nix/modules/
+  bitcoin-dnsseed/
+  bitcoin-core-guix-substitutes/
+  forgejo-site/
+  radicle-mirror/
+  stuntman/
 ```
 
-The overlay adds `pkgs.dnsseedrs` and the module provides `services.dnsseedrs.<name>` for declarative multi-instance configuration. Each instance gets its own systemd service and state directory at `/var/lib/dnsseedrs/<name>`.
+This flake pins those repos as local `git+file` inputs. The modules expose the
+service interfaces; this repo supplies site-local values such as domains,
+secret paths, and data placement.
 
 ## Secrets
 
@@ -35,6 +42,9 @@ Secrets are managed with [sops-nix](https://github.com/Mic92/sops-nix) and encry
 Managed secrets:
 - Cloudflare API token (for Caddy ACME DNS challenges)
 - DNSSEC keys (ZSK + KSK per network, deployed as binary files)
+- Forgejo secrets and mailer password
+- Radicle private key
+- Guix substitute signing keys
 
 ## Usage
 
