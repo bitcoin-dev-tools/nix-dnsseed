@@ -12,8 +12,8 @@
       url = "github:willcl-ark/dnsseedrs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    bitcoin-dnsseed = {
-      url = "github:willcl-ark/bitcoin-dnsseed";
+    will-nix = {
+      url = "git+file:/home/will/src/nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.dnsseedrs.follows = "dnsseedrs";
     };
@@ -23,22 +23,6 @@
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    radicle-mirror = {
-      url = "github:willcl-ark/radicle-mirror";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    guix-substitutes = {
-      url = "github:willcl-ark/bitcoin-core-guix-substitutes";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    stuntman = {
-      url = "github:willcl-ark/stuntman";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    forgejo-site = {
-      url = "github:willcl-ark/forgejo-site";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -63,7 +47,7 @@
           modules = [
             inputs.disko.nixosModules.disko
             inputs.sops-nix.nixosModules.sops
-            inputs.bitcoin-dnsseed.nixosModules.default
+            inputs.will-nix.nixosModules.bitcoin-dnsseed
             ./hosts/dnsseed
           ];
         };
@@ -73,11 +57,11 @@
           modules = [
             inputs.disko.nixosModules.disko
             inputs.sops-nix.nixosModules.sops
-            inputs.bitcoin-dnsseed.nixosModules.default
-            inputs.radicle-mirror.nixosModules.default
-            inputs.guix-substitutes.nixosModules.default
-            inputs.stuntman.nixosModules.default
-            inputs.forgejo-site.nixosModules.default
+            inputs.will-nix.nixosModules.bitcoin-dnsseed
+            inputs.will-nix.nixosModules.radicle-mirror
+            inputs.will-nix.nixosModules.bitcoin-core-guix-substitutes
+            inputs.will-nix.nixosModules.stuntman
+            inputs.will-nix.nixosModules.forgejo-site
             {
               nixpkgs.overlays = [
                 (_final: prev: {

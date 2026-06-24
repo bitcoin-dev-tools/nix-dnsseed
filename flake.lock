@@ -1,28 +1,5 @@
 {
   "nodes": {
-    "bitcoin-dnsseed": {
-      "inputs": {
-        "dnsseedrs": [
-          "dnsseedrs"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1782299956,
-        "narHash": "sha256-5EPYKJwwg9CiBhtAye1eAij2HT5OEAX+2dSCBSUm/lU=",
-        "owner": "willcl-ark",
-        "repo": "bitcoin-dnsseed",
-        "rev": "1e27b3d08ef7f33f7bdc36e3f03e2ac866a548a8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "willcl-ark",
-        "repo": "bitcoin-dnsseed",
-        "type": "github"
-      }
-    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -100,26 +77,6 @@
         "type": "github"
       }
     },
-    "forgejo-site": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1782300279,
-        "narHash": "sha256-bVq5jDFkSrkcm3YuBP2rSvvnlaBxKNpH38zavvxDhWQ=",
-        "owner": "willcl-ark",
-        "repo": "forgejo-site",
-        "rev": "ed7234c58d816f9d54a46f9c224af95244ba3a0d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "willcl-ark",
-        "repo": "forgejo-site",
-        "type": "github"
-      }
-    },
     "forgejo-src": {
       "flake": false,
       "locked": {
@@ -134,26 +91,6 @@
         "owner": "willcl-ark",
         "ref": "full-mirror",
         "repo": "forgejo",
-        "type": "github"
-      }
-    },
-    "guix-substitutes": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1782299220,
-        "narHash": "sha256-75XyRWFt8DseMNZJxkpJmsNQQ0VU+6Be4Q6ATk2YoT8=",
-        "owner": "willcl-ark",
-        "repo": "bitcoin-core-guix-substitutes",
-        "rev": "c1aec2947d3385fbf407334c45b38b8958ab4411",
-        "type": "github"
-      },
-      "original": {
-        "owner": "willcl-ark",
-        "repo": "bitcoin-core-guix-substitutes",
         "type": "github"
       }
     },
@@ -188,39 +125,15 @@
         "type": "github"
       }
     },
-    "radicle-mirror": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1782299220,
-        "narHash": "sha256-IIdaE3TGUNag4BG8uboY2CAU+e/OdBSWCATFsdxW0uA=",
-        "owner": "willcl-ark",
-        "repo": "radicle-mirror",
-        "rev": "d1faaf2ec5a9ae10b3fd82f32c35639c306e7e03",
-        "type": "github"
-      },
-      "original": {
-        "owner": "willcl-ark",
-        "repo": "radicle-mirror",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
-        "bitcoin-dnsseed": "bitcoin-dnsseed",
         "disko": "disko",
         "dnsseedrs": "dnsseedrs",
         "flake-parts": "flake-parts",
-        "forgejo-site": "forgejo-site",
         "forgejo-src": "forgejo-src",
-        "guix-substitutes": "guix-substitutes",
         "nixpkgs": "nixpkgs",
-        "radicle-mirror": "radicle-mirror",
         "sops-nix": "sops-nix",
-        "stuntman": "stuntman"
+        "will-nix": "will-nix"
       }
     },
     "sops-nix": {
@@ -243,26 +156,6 @@
         "type": "github"
       }
     },
-    "stuntman": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1782299220,
-        "narHash": "sha256-6IfFXgASQZ3IOFL5tuj7fCiy6qijM0tiOx1Ksd/m1so=",
-        "owner": "willcl-ark",
-        "repo": "stuntman",
-        "rev": "8d4751cea431a6a4a19082f8e9d56bcba81007c1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "willcl-ark",
-        "repo": "stuntman",
-        "type": "github"
-      }
-    },
     "systems": {
       "locked": {
         "lastModified": 1681028828,
@@ -276,6 +169,29 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "will-nix": {
+      "inputs": {
+        "dnsseedrs": [
+          "dnsseedrs"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782308082,
+        "narHash": "sha256-7VLroRlwxV3jbcMMnrt7ehTjJ7MYmaq5XHKmM5IRRfg=",
+        "ref": "refs/heads/master",
+        "rev": "b11d9541dd61d7b5373477b1ac45cd586a16eefe",
+        "revCount": 1,
+        "type": "git",
+        "url": "file:/home/will/src/nix"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:/home/will/src/nix"
       }
     }
   },

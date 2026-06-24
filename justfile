@@ -2,7 +2,9 @@ set shell := ["bash", "-uc"]
 hostname := "nero"
 target := "root@nero"
 ssh_port := env_var_or_default("SSH_PORT", "2222")
-module_inputs := "bitcoin-dnsseed guix-substitutes forgejo-site radicle-mirror stuntman"
+nix_modules_path := env_var_or_default("NIX_MODULES_PATH", "/home/will/src/nix")
+remote_nix_modules_path := "/etc/nixos/nix"
+module_inputs := "will-nix"
 
 [private]
 default:
@@ -55,17 +57,18 @@ rekey:
 [private]
 sync-remote:
     rsync -avz -e 'ssh -p {{ssh_port}}' --delete --exclude='.git' --filter=':- .gitignore' ./ {{target}}:/etc/nixos/
+    rsync -avz -e 'ssh -p {{ssh_port}}' --delete --exclude='.git' --filter=':- .gitignore' {{nix_modules_path}}/ {{target}}:{{remote_nix_modules_path}}/
     ssh -p {{ssh_port}} {{target}} "git config --global --add safe.directory /etc/nixos && cd /etc/nixos && git init -q && git add -A"
 
 # Sync repo to remote and switch configuration.
-# Reusable service modules are fetched from GitHub through flake.lock.
+# Reusable service modules are synced from nix_modules_path.
 switch: sync-remote
-    ssh -p {{ssh_port}} {{target}} "cd /etc/nixos && nixos-rebuild switch --flake /etc/nixos#{{hostname}}"
+    ssh -p {{ssh_port}} {{target}} "cd /etc/nixos && nixos-rebuild switch --flake /etc/nixos#{{hostname}} --override-input will-nix path:{{remote_nix_modules_path}}"
 
 # Sync repo to remote and build there without switching.
 # This verifies the same remote flake path used by `just switch`.
 build-remote: sync-remote
-    ssh -p {{ssh_port}} {{target}} "cd /etc/nixos && nixos-rebuild build --flake /etc/nixos#{{hostname}} --no-link"
+    ssh -p {{ssh_port}} {{target}} "cd /etc/nixos && nixos-rebuild build --flake /etc/nixos#{{hostname}} --override-input will-nix path:{{remote_nix_modules_path}} --no-link"
 
 # Build locally and switch remote configuration
 push:

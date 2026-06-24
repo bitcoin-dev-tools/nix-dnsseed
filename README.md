@@ -4,10 +4,10 @@ NixOS host aggregator for the `dnsseed` and `nero` machines.
 
 ## Overview
 
-This flake composes reusable service modules that live outside this deployment
-repo under `/home/will/src/nix/modules`.
+This flake composes reusable service modules from the collection repo at
+`/home/will/src/nix`.
 
-Standalone modules currently consumed by this repo:
+Modules currently consumed by this repo:
 
 - **bitcoin-dnsseed** -- `dnsseedrs`, CoreDNS, DNSSEC secrets, seed dumps, Tor/I2P
 - **bitcoin-core-guix-substitutes** -- Guix publish and Bitcoin Core Guix builds
@@ -20,20 +20,22 @@ secret file paths, host sizing, and deployment commands.
 
 ## Module Layout
 
-Each reusable module is its own git repo:
+Reusable modules live under a single top-level Nix collection repo:
 
 ```text
-/home/will/src/nix/modules/
-  bitcoin-dnsseed/
-  bitcoin-core-guix-substitutes/
-  forgejo-site/
-  radicle-mirror/
-  stuntman/
+/home/will/src/nix/
+  flake.nix
+  modules/
+    bitcoin-dnsseed/
+    bitcoin-core-guix-substitutes/
+    forgejo-site/
+    radicle-mirror/
+    stuntman/
 ```
 
-This flake pins those repos as local `git+file` inputs. The modules expose the
-service interfaces; this repo supplies site-local values such as domains,
-secret paths, and data placement.
+This flake pins that collection as the local `will-nix` input. The modules
+expose the service interfaces; this repo supplies site-local values such as
+domains, secret paths, and data placement.
 
 ## Secrets
 
@@ -56,6 +58,9 @@ just deploy
 
 # Sync config and rebuild on the remote
 just switch
+
+# Sync config and build on the remote without switching
+just build-remote
 
 # Build locally to check for errors
 just build
