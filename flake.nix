@@ -21,15 +21,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     radicle-mirror = {
-      url = "path:./radicle-mirror";
+      url = "git+file:/home/will/src/nix/modules/radicle-mirror";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     guix-substitutes = {
-      url = "path:./guix-substitutes";
+      url = "git+file:/home/will/src/nix/modules/bitcoin-core-guix-substitutes";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stuntman = {
-      url = "path:./stuntman";
+      url = "git+file:/home/will/src/nix/modules/stuntman";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

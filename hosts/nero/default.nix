@@ -29,7 +29,7 @@
     threads = 10;
   };
 
-  stutman.enable = true;
+  services.stuntman.enable = true;
 
   services.openssh.ports = [
     22
@@ -69,13 +69,13 @@
   services.bitcoinCoreGuixSubstitutes = {
     enable = true;
     domain = "guix.fish.foo";
-    stateDirectory = "/gnu/guix-bitcoin";
+    dataDir = "/gnu/guix-bitcoin";
 
-    signingKeySecrets = {
-      public = ../../secrets/guix/signing-key.pub;
-      private = ../../secrets/guix/signing-key.sec;
+    signingKey = {
+      publicFile = ../../secrets/guix/signing-key.pub;
+      privateFile = ../../secrets/guix/signing-key.sec;
+      signatureFile = ../../secrets/guix/signing-key.pub.asc;
     };
-    signingKeySignature = ../../secrets/guix/signing-key.pub.asc;
 
     macosSdks = [
       "Xcode-26.1.1-17B100"
