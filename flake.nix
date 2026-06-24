@@ -8,14 +8,9 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dnsseedrs = {
-      url = "github:willcl-ark/dnsseedrs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     will-nix = {
       url = "github:willcl-ark/nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.dnsseedrs.follows = "dnsseedrs";
     };
     forgejo-src = {
       url = "github:willcl-ark/forgejo/full-mirror";
