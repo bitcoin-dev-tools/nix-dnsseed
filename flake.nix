@@ -13,7 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     will-nix = {
-      url = "git+file:/home/will/src/nix";
+      url = "github:willcl-ark/nix";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.dnsseedrs.follows = "dnsseedrs";
     };

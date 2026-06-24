@@ -4,8 +4,8 @@ NixOS host aggregator for the `dnsseed` and `nero` machines.
 
 ## Overview
 
-This flake composes reusable service modules from the collection repo at
-`/home/will/src/nix`.
+This flake composes reusable service modules from
+`github:willcl-ark/nix`.
 
 Modules currently consumed by this repo:
 
@@ -23,7 +23,7 @@ secret file paths, host sizing, and deployment commands.
 Reusable modules live under a single top-level Nix collection repo:
 
 ```text
-/home/will/src/nix/
+github.com/willcl-ark/nix
   flake.nix
   modules/
     bitcoin-dnsseed/
@@ -33,7 +33,7 @@ Reusable modules live under a single top-level Nix collection repo:
     stuntman/
 ```
 
-This flake pins that collection as the local `will-nix` input. The modules
+This flake pins that collection as the `will-nix` input. The modules
 expose the service interfaces; this repo supplies site-local values such as
 domains, secret paths, and data placement.
 

@@ -183,15 +183,15 @@
       "locked": {
         "lastModified": 1782308082,
         "narHash": "sha256-7VLroRlwxV3jbcMMnrt7ehTjJ7MYmaq5XHKmM5IRRfg=",
-        "ref": "refs/heads/master",
+        "owner": "willcl-ark",
+        "repo": "nix",
         "rev": "b11d9541dd61d7b5373477b1ac45cd586a16eefe",
-        "revCount": 1,
-        "type": "git",
-        "url": "file:/home/will/src/nix"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:/home/will/src/nix"
+        "owner": "willcl-ark",
+        "repo": "nix",
+        "type": "github"
       }
     }
   },
