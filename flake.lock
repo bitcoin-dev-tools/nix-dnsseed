@@ -12,15 +12,15 @@
       "locked": {
         "lastModified": 1782299956,
         "narHash": "sha256-5EPYKJwwg9CiBhtAye1eAij2HT5OEAX+2dSCBSUm/lU=",
-        "ref": "refs/heads/master",
+        "owner": "willcl-ark",
+        "repo": "bitcoin-dnsseed",
         "rev": "1e27b3d08ef7f33f7bdc36e3f03e2ac866a548a8",
-        "revCount": 1,
-        "type": "git",
-        "url": "file:/home/will/src/nix/modules/bitcoin-dnsseed"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:/home/will/src/nix/modules/bitcoin-dnsseed"
+        "owner": "willcl-ark",
+        "repo": "bitcoin-dnsseed",
+        "type": "github"
       }
     },
     "disko": {
@@ -109,15 +109,15 @@
       "locked": {
         "lastModified": 1782300279,
         "narHash": "sha256-bVq5jDFkSrkcm3YuBP2rSvvnlaBxKNpH38zavvxDhWQ=",
-        "ref": "refs/heads/master",
+        "owner": "willcl-ark",
+        "repo": "forgejo-site",
         "rev": "ed7234c58d816f9d54a46f9c224af95244ba3a0d",
-        "revCount": 1,
-        "type": "git",
-        "url": "file:/home/will/src/nix/modules/forgejo-site"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:/home/will/src/nix/modules/forgejo-site"
+        "owner": "willcl-ark",
+        "repo": "forgejo-site",
+        "type": "github"
       }
     },
     "forgejo-src": {
@@ -146,15 +146,15 @@
       "locked": {
         "lastModified": 1782299220,
         "narHash": "sha256-75XyRWFt8DseMNZJxkpJmsNQQ0VU+6Be4Q6ATk2YoT8=",
-        "ref": "refs/heads/master",
+        "owner": "willcl-ark",
+        "repo": "bitcoin-core-guix-substitutes",
         "rev": "c1aec2947d3385fbf407334c45b38b8958ab4411",
-        "revCount": 1,
-        "type": "git",
-        "url": "file:/home/will/src/nix/modules/bitcoin-core-guix-substitutes"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:/home/will/src/nix/modules/bitcoin-core-guix-substitutes"
+        "owner": "willcl-ark",
+        "repo": "bitcoin-core-guix-substitutes",
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -197,15 +197,15 @@
       "locked": {
         "lastModified": 1782299220,
         "narHash": "sha256-IIdaE3TGUNag4BG8uboY2CAU+e/OdBSWCATFsdxW0uA=",
-        "ref": "refs/heads/master",
+        "owner": "willcl-ark",
+        "repo": "radicle-mirror",
         "rev": "d1faaf2ec5a9ae10b3fd82f32c35639c306e7e03",
-        "revCount": 1,
-        "type": "git",
-        "url": "file:/home/will/src/nix/modules/radicle-mirror"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:/home/will/src/nix/modules/radicle-mirror"
+        "owner": "willcl-ark",
+        "repo": "radicle-mirror",
+        "type": "github"
       }
     },
     "root": {
@@ -252,15 +252,15 @@
       "locked": {
         "lastModified": 1782299220,
         "narHash": "sha256-6IfFXgASQZ3IOFL5tuj7fCiy6qijM0tiOx1Ksd/m1so=",
-        "ref": "refs/heads/master",
+        "owner": "willcl-ark",
+        "repo": "stuntman",
         "rev": "8d4751cea431a6a4a19082f8e9d56bcba81007c1",
-        "revCount": 1,
-        "type": "git",
-        "url": "file:/home/will/src/nix/modules/stuntman"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:/home/will/src/nix/modules/stuntman"
+        "owner": "willcl-ark",
+        "repo": "stuntman",
+        "type": "github"
       }
     },
     "systems": {

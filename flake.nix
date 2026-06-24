@@ -13,7 +13,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     bitcoin-dnsseed = {
-      url = "git+file:/home/will/src/nix/modules/bitcoin-dnsseed";
+      url = "github:willcl-ark/bitcoin-dnsseed";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.dnsseedrs.follows = "dnsseedrs";
     };
@@ -26,19 +26,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     radicle-mirror = {
-      url = "git+file:/home/will/src/nix/modules/radicle-mirror";
+      url = "github:willcl-ark/radicle-mirror";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     guix-substitutes = {
-      url = "git+file:/home/will/src/nix/modules/bitcoin-core-guix-substitutes";
+      url = "github:willcl-ark/bitcoin-core-guix-substitutes";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stuntman = {
-      url = "git+file:/home/will/src/nix/modules/stuntman";
+      url = "github:willcl-ark/stuntman";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     forgejo-site = {
-      url = "git+file:/home/will/src/nix/modules/forgejo-site";
+      url = "github:willcl-ark/forgejo-site";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
