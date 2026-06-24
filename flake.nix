@@ -37,6 +37,10 @@
       url = "git+file:/home/will/src/nix/modules/stuntman";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    forgejo-site = {
+      url = "git+file:/home/will/src/nix/modules/forgejo-site";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -73,6 +77,7 @@
             inputs.radicle-mirror.nixosModules.default
             inputs.guix-substitutes.nixosModules.default
             inputs.stuntman.nixosModules.default
+            inputs.forgejo-site.nixosModules.default
             {
               nixpkgs.overlays = [
                 (_final: prev: {

@@ -100,6 +100,26 @@
         "type": "github"
       }
     },
+    "forgejo-site": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782300279,
+        "narHash": "sha256-bVq5jDFkSrkcm3YuBP2rSvvnlaBxKNpH38zavvxDhWQ=",
+        "ref": "refs/heads/master",
+        "rev": "ed7234c58d816f9d54a46f9c224af95244ba3a0d",
+        "revCount": 1,
+        "type": "git",
+        "url": "file:/home/will/src/nix/modules/forgejo-site"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:/home/will/src/nix/modules/forgejo-site"
+      }
+    },
     "forgejo-src": {
       "flake": false,
       "locked": {
@@ -194,6 +214,7 @@
         "disko": "disko",
         "dnsseedrs": "dnsseedrs",
         "flake-parts": "flake-parts",
+        "forgejo-site": "forgejo-site",
         "forgejo-src": "forgejo-src",
         "guix-substitutes": "guix-substitutes",
         "nixpkgs": "nixpkgs",

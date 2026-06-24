@@ -3,7 +3,6 @@
   imports = [
     ../common.nix
     ./disko.nix
-    ./forgejo.nix
     ./hardware-configuration.nix
   ];
 
@@ -80,6 +79,23 @@
     macosSdks = [
       "Xcode-26.1.1-17B100"
     ];
+  };
+
+  services.forgejoSite = {
+    enable = true;
+    domain = "code.fish.foo";
+
+    admin = {
+      user = "willcl-ark";
+      email = "will@256k1.dev";
+    };
+
+    mailer = {
+      enable = true;
+      from = "Forgejo <forgejo@fish.foo>";
+      smtpAddress = "smtp.mailbox.org";
+      user = "will@256k1.dev";
+    };
   };
 
   services.caddy.virtualHosts."bitcoin.fish.foo".extraConfig = ''
