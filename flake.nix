@@ -12,6 +12,11 @@
       url = "github:willcl-ark/dnsseedrs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    bitcoin-dnsseed = {
+      url = "git+file:/home/will/src/nix/modules/bitcoin-dnsseed";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.dnsseedrs.follows = "dnsseedrs";
+    };
     forgejo-src = {
       url = "github:willcl-ark/forgejo/full-mirror";
       flake = false;
@@ -54,10 +59,7 @@
           modules = [
             inputs.disko.nixosModules.disko
             inputs.sops-nix.nixosModules.sops
-            inputs.dnsseedrs.nixosModules.default
-            {
-              nixpkgs.overlays = [ inputs.dnsseedrs.overlays.default ];
-            }
+            inputs.bitcoin-dnsseed.nixosModules.default
             ./hosts/dnsseed
           ];
         };
@@ -67,13 +69,12 @@
           modules = [
             inputs.disko.nixosModules.disko
             inputs.sops-nix.nixosModules.sops
-            inputs.dnsseedrs.nixosModules.default
+            inputs.bitcoin-dnsseed.nixosModules.default
             inputs.radicle-mirror.nixosModules.default
             inputs.guix-substitutes.nixosModules.default
             inputs.stuntman.nixosModules.default
             {
               nixpkgs.overlays = [
-                inputs.dnsseedrs.overlays.default
                 (_final: prev: {
                   forgejo = prev.forgejo.overrideAttrs {
                     src = inputs.forgejo-src;

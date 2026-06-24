@@ -20,11 +20,11 @@
     interface = "enp6s0";
   };
 
-  services.dnsseedrs.mainnet = {
+  services.bitcoinDnsSeed.mainnet = {
     enable = true;
     threads = 32;
   };
-  services.dnsseedrs.signet = {
+  services.bitcoinDnsSeed.signet = {
     enable = false;
     threads = 10;
   };

@@ -1,5 +1,28 @@
 {
   "nodes": {
+    "bitcoin-dnsseed": {
+      "inputs": {
+        "dnsseedrs": [
+          "dnsseedrs"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782299956,
+        "narHash": "sha256-5EPYKJwwg9CiBhtAye1eAij2HT5OEAX+2dSCBSUm/lU=",
+        "ref": "refs/heads/master",
+        "rev": "1e27b3d08ef7f33f7bdc36e3f03e2ac866a548a8",
+        "revCount": 1,
+        "type": "git",
+        "url": "file:/home/will/src/nix/modules/bitcoin-dnsseed"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:/home/will/src/nix/modules/bitcoin-dnsseed"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -167,6 +190,7 @@
     },
     "root": {
       "inputs": {
+        "bitcoin-dnsseed": "bitcoin-dnsseed",
         "disko": "disko",
         "dnsseedrs": "dnsseedrs",
         "flake-parts": "flake-parts",
