@@ -83,7 +83,7 @@
 
   services.forgejoSite = {
     enable = true;
-    domain = "code.fish.foo";
+    domain = "git.fish.foo";
 
     admin = {
       user = "willcl-ark";
