@@ -93,7 +93,9 @@
     mailer = {
       enable = true;
       from = "Forgejo <forgejo@fish.foo>";
+      protocol = "smtp+starttls";
       smtpAddress = "smtp.mailbox.org";
+      smtpPort = 587;
       user = "will@256k1.dev";
     };
   };
