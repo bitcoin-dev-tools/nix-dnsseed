@@ -1,4 +1,12 @@
-{ config, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  guixSubstitutesDataDir = config.services.bitcoinCoreGuixSubstitutes.dataDir;
+in
 {
   imports = [
     ../common.nix
@@ -116,4 +124,16 @@
     after = [ "sops-install-secrets.service" ];
     wants = [ "sops-install-secrets.service" ];
   };
+
+  systemd.tmpfiles.rules = lib.mkAfter [
+    "z ${guixSubstitutesDataDir} 0751 guix-bitcoin-build guix-bitcoin-build -"
+  ];
+
+  systemd.services.guix-publish.serviceConfig.ExecStartPre = lib.mkAfter [
+    "+${pkgs.coreutils}/bin/chmod 0751 ${guixSubstitutesDataDir}"
+  ];
+
+  systemd.services.guix-bitcoin-build.serviceConfig.ExecStartPre = lib.mkAfter [
+    "+${pkgs.coreutils}/bin/chmod 0751 ${guixSubstitutesDataDir}"
+  ];
 }
