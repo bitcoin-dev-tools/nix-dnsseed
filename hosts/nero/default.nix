@@ -21,7 +21,7 @@
 
   services.bitcoinDnsSeed.mainnet = {
     enable = true;
-    threads = 32;
+    threads = 40;
   };
   services.bitcoinDnsSeed.signet = {
     enable = true;
