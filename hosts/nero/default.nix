@@ -24,7 +24,11 @@
     threads = 32;
   };
   services.bitcoinDnsSeed.signet = {
-    enable = false;
+    enable = true;
+    seedNodes = [
+      "5.78.116.35:38333"
+      "34.254.97.244:38333"
+    ];
     threads = 10;
   };
 
