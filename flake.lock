@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "b10c-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783516101,
+        "narHash": "sha256-CwdKZ+Gg/cbP2KizMb+pwMeh7K4Kp7WZi3F17kPc3hQ=",
+        "owner": "0xB10C",
+        "repo": "nix",
+        "rev": "0b723ae092e6afdd2f22d95e907e0c50e9f03d22",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0xB10C",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -88,6 +108,7 @@
     },
     "root": {
       "inputs": {
+        "b10c-nix": "b10c-nix",
         "disko": "disko",
         "flake-parts": "flake-parts",
         "forgejo-src": "forgejo-src",

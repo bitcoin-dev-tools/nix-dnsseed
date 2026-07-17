@@ -12,6 +12,10 @@
       url = "github:willcl-ark/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    b10c-nix = {
+      url = "github:0xB10C/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     forgejo-src = {
       url = "github:willcl-ark/forgejo/full-mirror";
       flake = false;
@@ -57,6 +61,7 @@
             inputs.will-nix.nixosModules.bitcoin-core-guix-substitutes
             inputs.will-nix.nixosModules.stuntman
             inputs.will-nix.nixosModules.forgejo-site
+            inputs.b10c-nix.nixosModules.default.github-metadata-backup
             {
               nixpkgs.overlays = [
                 (_final: prev: {

@@ -58,6 +58,18 @@ in
     mode = "0400";
   };
 
+  sops.secrets.github-metadata-backup-github-token = {
+    owner = "gmb-bitcoin";
+    group = "github-metadata";
+    mode = "0400";
+  };
+
+  sops.secrets.github-metadata-backup-forgejo-token = {
+    owner = "gmb-bitcoin";
+    group = "github-metadata";
+    mode = "0400";
+  };
+
   services.radicleMirror = {
     enable = true;
     domain = "radicle.fish.foo";
@@ -112,6 +124,23 @@ in
     };
   };
 
+  services.github-metadata-backup.bitcoin = {
+    enable = true;
+    owner = "bitcoin";
+    repository = "bitcoin";
+    personalAccessTokenFile = config.sops.secrets.github-metadata-backup-github-token.path;
+    timerOnCalendar = "*-*-* 06:00:00 UTC";
+
+    pushToRemotes = [
+      {
+        name = "forgejo";
+        remote = "https://git.fish.foo/willcl-ark/github-metadata-backup-bitcoin-bitcoin.git";
+        user = "willcl-ark";
+        tokenFile = config.sops.secrets.github-metadata-backup-forgejo-token.path;
+      }
+    ];
+  };
+
   services.caddy.virtualHosts."bitcoin.fish.foo".extraConfig = ''
     redir /pruned-840k /pruned-840k/
     handle_path /pruned-840k/* {
@@ -121,6 +150,18 @@ in
   '';
 
   systemd.services.radicle-node = {
+    after = [ "sops-install-secrets.service" ];
+    wants = [ "sops-install-secrets.service" ];
+  };
+
+  systemd.timers.github-metadata-backup-bitcoin.timerConfig.Persistent = true;
+
+  systemd.services.github-metadata-backup-bitcoin = {
+    after = [ "sops-install-secrets.service" ];
+    wants = [ "sops-install-secrets.service" ];
+  };
+
+  systemd.services.github-metadata-backup-git-pusher-bitcoin = {
     after = [ "sops-install-secrets.service" ];
     wants = [ "sops-install-secrets.service" ];
   };
