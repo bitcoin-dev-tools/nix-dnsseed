@@ -124,6 +124,8 @@ in
     };
   };
 
+  services.forgejo.dump.age = "7d";
+
   services.github-metadata-backup.bitcoin = {
     enable = true;
     owner = "bitcoin";
