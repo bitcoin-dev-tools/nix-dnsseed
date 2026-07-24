@@ -47,6 +47,12 @@ in
         exit 1
       fi
 
+      JOBS=${toString cfg.buildJobs}
+      ADDITIONAL_GUIX_COMMON_FLAGS=
+      ADDITIONAL_GUIX_TIMEMACHINE_FLAGS="${cfg.additionalGuixTimemachineFlags}"
+      SUBSTITUTE_URLS=
+      source contrib/guix/libexec/prelude.bash
+
       profiles_dir=${profilesRoot}/"$commit"
       last_built=${cfg.dataDir}/last-built-manifests-${guixSystem}
 
@@ -79,21 +85,13 @@ in
         fi
 
         echo "Building $manifest profile for $host on ${guixSystem}..."
-        env HOST="$host" \
-          guix time-machine \
-            --url=https://codeberg.org/guix/guix.git \
-            --commit=c5eee3336cc1d10a3cc1c97fde2809c3451624d3 \
-            --cores=${toString cfg.buildJobs} \
-            --keep-failed \
-            --fallback \
-            ${cfg.additionalGuixTimemachineFlags} \
-            -- shell \
-              --manifest="$manifest" \
-              --cores=${toString cfg.buildJobs} \
-              --keep-failed \
-              --fallback \
-              --root="$profile" \
-              -- ${pkgs.coreutils}/bin/true
+        HOST="$host" time-machine shell \
+          --manifest="$manifest" \
+          --cores=${toString cfg.buildJobs} \
+          --keep-failed \
+          --fallback \
+          --root="$profile" \
+          -- ${pkgs.coreutils}/bin/true
       }
 
       for host in ${lib.escapeShellArgs bitcoinGuixHosts}; do
@@ -133,17 +131,10 @@ in
         manifest="$2"
 
         echo "Checking $manifest substitutes for $host on ${guixSystem}..."
-        until env HOST="$host" \
-          guix time-machine \
-            --url=https://codeberg.org/guix/guix.git \
-            --commit=c5eee3336cc1d10a3cc1c97fde2809c3451624d3 \
-            --cores=${toString cfg.buildJobs} \
-            --keep-failed \
-            --fallback \
-            ${cfg.additionalGuixTimemachineFlags} \
-            -- weather \
-              --substitute-urls="$prewarm_url" \
-              --manifest="$manifest" \
+        until HOST="$host" \
+          time-machine weather \
+            --substitute-urls="$prewarm_url" \
+            --manifest="$manifest" \
           | grep -q '100.0% substitutes available'; do
           sleep 10
         done
