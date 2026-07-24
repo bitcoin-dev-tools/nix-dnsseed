@@ -11,6 +11,7 @@ in
   imports = [
     ../common.nix
     ./disko.nix
+    ./guix-substitute-build.nix
     ./hardware-configuration.nix
   ];
 
@@ -99,10 +100,6 @@ in
       privateFile = ../../secrets/guix/signing-key.sec;
       signatureFile = ../../secrets/guix/signing-key.pub.asc;
     };
-
-    macosSdks = [
-      "Xcode-26.1.1-17B100"
-    ];
   };
 
   services.forgejoSite = {

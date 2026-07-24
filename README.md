@@ -10,7 +10,7 @@ This flake composes reusable service modules from
 Modules currently consumed by this repo:
 
 - **bitcoin-dnsseed** -- `dnsseedrs`, CoreDNS, DNSSEC secrets, seed dumps, Tor/I2P
-- **bitcoin-core-guix-substitutes** -- Guix publish and Bitcoin Core Guix builds
+- **bitcoin-core-guix-substitutes** -- Guix publish and Bitcoin Core build profiles
 - **radicle-mirror** -- public Radicle seed, explorer frontend, Bitcoin Core mirror
 - **stuntman** -- STUNTMAN STUN server and btcpunch rendezvous helper
 - **forgejo-site** -- Forgejo, Anubis, Caddy route, secrets, admin bootstrap
