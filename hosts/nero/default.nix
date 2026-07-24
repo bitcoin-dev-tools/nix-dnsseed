@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   pkgs,
   ...
 }:
@@ -101,6 +102,10 @@ in
       signatureFile = ../../secrets/guix/signing-key.pub.asc;
     };
   };
+
+  services.guix.substituters.authorizedKeys =
+    options.services.guix.substituters.authorizedKeys.default
+    ++ [ ./guix-signing-key.pub ];
 
   services.forgejoSite = {
     enable = true;
